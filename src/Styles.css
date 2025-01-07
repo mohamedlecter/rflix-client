@@ -1,0 +1,182 @@
+/* Global Styles */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #ffffff;
+  line-height: 1.5;
+}
+
+h1, h2, h3 {
+  margin: 0.5em 0;
+  color: #ff6f61;
+}
+
+a {
+  color: #ff6f61;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #ff6f61;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #ff3e30;
+}
+
+/* Layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.home-page, .movie-details-page, .my-ratings-page {
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Sign-In Styles */
+.sign-in {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.sign-in form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-in input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.sign-in button {
+  margin-top: 10px;
+}
+
+/* Movie List and Cards */
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.movie-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+}
+
+.movie-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.movie-card h3, .movie-card p {
+  margin: 10px;
+  text-align: center;
+}
+
+.movie-card p {
+  font-size: 14px;
+  color: #bbbbbb;
+}
+
+/* Genre Filter */
+.genre-filter {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.genre-filter select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Movie Details */
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.movie-details img {
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.movie-details a {
+  margin: 10px;
+  font-size: 16px;
+}
+
+.movie-details p {
+  max-width: 800px;
+  margin: 10px 0;
+  font-size: 16px;
+  color: #bbbbbb;
+}
+
+/* My Ratings */
+.my-ratings {
+  text-align: center;
+}
+
+.my-ratings .movie-list {
+  justify-content: flex-start;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .movie-card {
+    width: 150px;
+  }
+
+  .movie-card img {
+    height: 225px;
+  }
+
+  .movie-details img {
+    width: 200px;
+  }
+
+  .sign-in input {
+    width: 100%;
+    max-width: 300px;
+  }
+}
