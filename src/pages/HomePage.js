@@ -6,13 +6,14 @@ import {
   getTopRatedMovies,
   getGenres,
 } from "../redux/actions/movieActions";
+import SearchBar from "../components/Movies/SearchBar";
 import "../Styles.css";
-
 const HomePage = () => {
   const dispatch = useDispatch();
   const popularMovies = useSelector((state) => state.movies.popularMovies);
   const topRatedMovies = useSelector((state) => state.movies.topRatedMovies);
   const genres = useSelector((state) => state.movies.genres);
+  const searchResults = useSelector((state) => state.movies.searchResults);
 
   useEffect(() => {
     dispatch(getPopularMovies());
@@ -25,19 +26,41 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <h1>Welcome to R-flix</h1>
+      <a href="/">
+        <h1>R-flix</h1>
+      </a>
+      <SearchBar />
 
-      <div className="movie-search"></div>
+      {searchResults.length > 0 ? (
+        <section>
+          <h2>Search Results</h2>
+          <MovieList
+            movies={searchResults}
+            genres={genres}
+            onClick={() => {}}
+          />
+        </section>
+      ) : (
+        <>
+          <section>
+            <h2>Popular Movies</h2>
+            <MovieList
+              movies={popularMovies}
+              genres={genres}
+              onClick={() => {}}
+            />
+          </section>
 
-      <section>
-        <h2>Popular Movies</h2>
-        <MovieList movies={popularMovies} genres={genres} onClick={() => {}} />
-      </section>
-
-      <section>
-        <h2>Top Rated Movies</h2>
-        <MovieList movies={topRatedMovies} genres={genres} onClick={() => {}} />
-      </section>
+          <section>
+            <h2>Top Rated Movies</h2>
+            <MovieList
+              movies={topRatedMovies}
+              genres={genres}
+              onClick={() => {}}
+            />
+          </section>
+        </>
+      )}
     </div>
   );
 };

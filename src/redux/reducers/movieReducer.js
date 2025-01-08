@@ -4,6 +4,7 @@ import {
   GET_MOVIE_DETAILS,
   GET_MY_RATINGS,
   GET_GENRES,
+  SEARCH_MOVIES,
 } from "../actions/movieActions";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   recommendations: [],
   ratedMovies: [],
   genres: [],
+  searchResults: [],
 };
 
 const movieReducer = (state = initialState, action) => {
@@ -31,6 +33,8 @@ const movieReducer = (state = initialState, action) => {
       return { ...state, ratedMovies: action.payload };
     case GET_GENRES:
       return { ...state, genres: action.payload };
+    case SEARCH_MOVIES:
+      return { ...state, searchResults: action.payload };
     default:
       return state;
   }

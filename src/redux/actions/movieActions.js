@@ -7,6 +7,8 @@ export const GET_TOP_RATED_MOVIES = "GET_TOP_RATED_MOVIES";
 export const GET_MOVIE_DETAILS = "GET_MOVIE_DETAILS";
 export const GET_MY_RATINGS = "GET_MY_RATINGS";
 export const GET_GENRES = "GET_GENRES";
+export const SEARCH_MOVIES = "SEARCH_MOVIES";
+export const GET_RECOMMENDATIONS = "GET_RECOMMENDATIONS";
 
 export const getPopularMovies = () => async (dispatch) => {
   try {
@@ -14,7 +16,7 @@ export const getPopularMovies = () => async (dispatch) => {
       `${BASE_URL}/movie/popular?api_key=${API_KEY}`
     );
     dispatch({ type: GET_POPULAR_MOVIES, payload: response.data.results });
-    console.log(response.data.results);
+    // console.log(response.data.results);
   } catch (error) {
     console.error("Error fetching popular movies:", error);
   }
@@ -50,6 +52,17 @@ export const getGenres = () => async (dispatch) => {
     dispatch({ type: GET_GENRES, payload: response.data.genres });
   } catch (error) {
     console.error("Error fetching genres:", error);
+  }
+};
+
+export const searchMovies = (query) => async (dispatch) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
+    );
+    dispatch({ type: SEARCH_MOVIES, payload: response.data.results });
+  } catch (error) {
+    console.error("Error fetching search results:", error);
   }
 };
 
