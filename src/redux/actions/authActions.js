@@ -1,10 +1,7 @@
 import axios from "axios";
-
+import { API_KEY, BASE_URL } from "../../services/tmdbApi";
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
-
-const API_KEY = "YOUR_TMDB_API_KEY";
-const BASE_URL = "https://api.themoviedb.org/3";
 
 export const signIn = (username, password) => async (dispatch) => {
   try {
