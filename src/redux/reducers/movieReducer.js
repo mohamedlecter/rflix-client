@@ -11,7 +11,6 @@ const initialState = {
   popularMovies: [],
   topRatedMovies: [],
   movieDetails: null,
-  recommendations: [],
   ratedMovies: [],
   genres: [],
   searchResults: [],
@@ -27,7 +26,6 @@ const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         movieDetails: action.payload,
-        recommendations: action.payload.recommendations.results,
       };
     case GET_MY_RATINGS:
       return { ...state, ratedMovies: action.payload };

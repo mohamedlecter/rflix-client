@@ -6,8 +6,8 @@ import {
   getTopRatedMovies,
   getGenres,
 } from "../redux/actions/movieActions";
-import SearchBar from "../components/Movies/SearchBar";
 import "../Styles.css";
+import Header from "../components/Header";
 const HomePage = () => {
   const dispatch = useDispatch();
   const popularMovies = useSelector((state) => state.movies.popularMovies);
@@ -22,42 +22,26 @@ const HomePage = () => {
   }, [dispatch]);
 
   // console.log(genres);
-  // console.log(popularMovies);
+  console.log(topRatedMovies);
 
   return (
     <div className="home-page">
-      <a href="/">
-        <h1>R-flix</h1>
-      </a>
-      <SearchBar />
-
+      <Header />
       {searchResults.length > 0 ? (
         <section>
           <h2>Search Results</h2>
-          <MovieList
-            movies={searchResults}
-            genres={genres}
-            onClick={() => {}}
-          />
+          <MovieList movies={searchResults} genres={genres} />
         </section>
       ) : (
         <>
           <section>
             <h2>Popular Movies</h2>
-            <MovieList
-              movies={popularMovies}
-              genres={genres}
-              onClick={() => {}}
-            />
+            <MovieList movies={popularMovies} genres={genres} />
           </section>
 
           <section>
             <h2>Top Rated Movies</h2>
-            <MovieList
-              movies={topRatedMovies}
-              genres={genres}
-              onClick={() => {}}
-            />
+            <MovieList movies={topRatedMovies} genres={genres} />
           </section>
         </>
       )}

@@ -8,7 +8,6 @@ export const GET_MOVIE_DETAILS = "GET_MOVIE_DETAILS";
 export const GET_MY_RATINGS = "GET_MY_RATINGS";
 export const GET_GENRES = "GET_GENRES";
 export const SEARCH_MOVIES = "SEARCH_MOVIES";
-export const GET_RECOMMENDATIONS = "GET_RECOMMENDATIONS";
 
 export const getPopularMovies = () => async (dispatch) => {
   try {
@@ -25,7 +24,7 @@ export const getPopularMovies = () => async (dispatch) => {
 export const getTopRatedMovies = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}`
+      `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&sort_by=vote_average.desc`
     );
     dispatch({ type: GET_TOP_RATED_MOVIES, payload: response.data.results });
   } catch (error) {

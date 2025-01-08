@@ -125,21 +125,39 @@ button:hover {
 }
 
 /* Movie Details */
-.movie-details {
+.movie-details-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin: 20px 0;
+  
 }
+.movie-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+}
 .movie-details img {
   width: 300px;
   height: auto;
   border-radius: 8px;
   margin-bottom: 20px;
+  
+}
+.cast{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
+.details
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 .movie-details a {
   margin: 10px;
   font-size: 16px;
@@ -186,11 +204,10 @@ button:hover {
   background-color: #ff6f61;
 }
 
-
 /* My Ratings */
 .my-ratings {
   text-align: center;
-}
+} 
 
 .my-ratings .movie-list {
   justify-content: flex-start;
