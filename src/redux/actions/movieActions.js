@@ -8,6 +8,9 @@ export const GET_MOVIE_DETAILS = "GET_MOVIE_DETAILS";
 export const GET_MY_RATINGS = "GET_MY_RATINGS";
 export const GET_GENRES = "GET_GENRES";
 export const SEARCH_MOVIES = "SEARCH_MOVIES";
+export const RATE_MOVIE = "RATE_MOVIE";
+export const REMOVE_MOVIE_RATING = "REMOVE_MOVIE_RATING";
+export const GET_MY_RATING = "GET_MY_RATING";
 
 export const getPopularMovies = (genreId) => async (dispatch) => {
   try {
@@ -80,14 +83,43 @@ export const searchMovies = (query) => async (dispatch) => {
   }
 };
 
-// export const getMyRatings = () => async (dispatch, getState) => {
-//   const sessionId = getState().auth.sessionId;
-//   try {
-//     const response = await axios.get(
-//       `${BASE_URL}/account/{account_id}/rated/movies?api_key=${API_KEY}&session_id=${sessionId}`
-//     );
-//     dispatch({ type: GET_MY_RATINGS, payload: response.data.results });
-//   } catch (error) {
-//     console.error("Error fetching rated movies:", error);
-//   }
-// };
+export const rateMovie = (movieId, rating, sessionId) => async (dispatch) => {
+  try {
+    const url = `${BASE_URL}/movie/${movieId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
+    await axios.post(url, { value: rating });
+    dispatch({ type: RATE_MOVIE, payload: { movieId, rating } });
+  } catch (error) {
+    console.error("Error rating movie:", error);
+  }
+};
+
+export const removeMovieRating = (movieId, sessionId) => async (dispatch) => {
+  try {
+    const url = `${BASE_URL}/movie/${movieId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
+    await axios.delete(url);
+    dispatch({ type: REMOVE_MOVIE_RATING, payload: movieId });
+  } catch (error) {
+    console.error("Error removing movie rating:", error);
+  }
+};
+
+export const getMyRatings = (sessionId) => async (dispatch) => {
+  try {
+    const url = `${BASE_URL}/account/{account_id}/rated/movies?api_key=${API_KEY}&session_id=${sessionId}`;
+    const response = await axios.get(url);
+    dispatch({ type: GET_MY_RATINGS, payload: response.data.results });
+  } catch (error) {
+    console.error("Error fetching user ratings:", error);
+  }
+};
+
+export const getMyMovieRating = (movieId, sessionId) => async (dispatch) => {
+  try {
+    const url = `${BASE_URL}/movie/${movieId}/account_states?api_key=${API_KEY}&session_id=${sessionId}`;
+    const response = await axios.get(url);
+    dispatch({ type: GET_MY_RATING, payload: response.data });
+    console.log("My rating:", response.data);
+  } catch (error) {
+    console.error("Error fetching user rating:", error);
+  }
+};

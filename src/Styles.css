@@ -206,7 +206,6 @@ button:hover {
 
 /* My Ratings */
 .my-ratings {
-  text-align: center;
 } 
 
 .my-ratings .movie-list {
@@ -306,6 +305,35 @@ button:hover {
 
 .sign-out-button:hover {
   background-color: #ff3e30;
+}
+
+.rating-actions {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.rating-actions button {
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: #1e1e1e;
+  color: #ff6f61;
+  border: 1px solid #ff6f61;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.rating-actions button:hover {
+  background-color: #ff3e30;
+  color: #fff;
+}
+.current-rating{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 20px;
 }
 
 

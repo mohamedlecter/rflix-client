@@ -16,6 +16,7 @@ const HomePage = () => {
   const genres = useSelector((state) => state.movies.genres);
   const searchResults = useSelector((state) => state.movies.searchResults);
   const [selectedGenre, setSelectedGenre] = useState("All");
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   console.log(topRatedMovies);
 
@@ -37,7 +38,7 @@ const HomePage = () => {
     }
   };
 
-  return (
+  return isAuthenticated ? (
     <div className="home-page">
       <Header />
       <div className="genre-filter">
@@ -74,6 +75,11 @@ const HomePage = () => {
           </section>
         </>
       )}
+    </div>
+  ) : (
+    <div>
+      <h1>Sign in to view this page</h1>
+      <a href="/">Sign In</a>
     </div>
   );
 };

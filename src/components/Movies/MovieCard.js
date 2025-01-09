@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useDispatch, useSelector } from "react-redux";
 const MovieCard = ({ movie, genres }) => {
   const navigate = useNavigate();
   const movieGenres = movie.genre_ids.map((id) => {

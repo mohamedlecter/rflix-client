@@ -40,7 +40,7 @@ export const signin = (username, password, navigate) => async (dispatch) => {
     console.log("sessionId", sessionId);
 
     // Redirect to home page
-    navigate("/");
+    navigate("/movies");
   } catch (error) {
     console.error("Sign-in failed:", error);
     alert("Authentication failed. Please check your credentials.");

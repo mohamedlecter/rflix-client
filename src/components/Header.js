@@ -11,16 +11,18 @@ export default function Header() {
 
   const handleSignOut = () => {
     dispatch(signOut());
-    navigate("/signin"); // Redirect to Sign-In page
+    navigate("/"); // Redirect to Sign-In page
   };
 
   return (
     <div className="header">
-      <a href="/">
+      <a href="/movies">
         <h1>R-flix</h1>
       </a>
 
       <SearchBar />
+
+      <a href="/my-ratings">My Ratings</a>
 
       {isAuthenticated && (
         <button onClick={handleSignOut} className="sign-out-button">

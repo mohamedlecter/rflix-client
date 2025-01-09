@@ -1,23 +1,45 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getMovieDetails } from "../redux/actions/movieActions";
+import {
+  getMovieDetails,
+  getMyMovieRating,
+} from "../redux/actions/movieActions";
 import MovieList from "../components/Movies/MovieList";
 import Header from "../components/Header";
+import { rateMovie, removeMovieRating } from "../redux/actions/movieActions";
 
 function MovieDetailsPage() {
   const { movieId } = useParams();
   const dispatch = useDispatch();
   const movie = useSelector((state) => state.movies.movieDetails);
-  console.log(movie);
+  const sessionId = useSelector((state) => state.auth.sessionId);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const ratedMovie = useSelector(
+    (state) => state.movies.ratedMovie?.rated?.value
+  );
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getMovieDetails(movieId));
+    dispatch(getMyMovieRating(movieId, sessionId));
   }, [dispatch, movieId]);
+
+  const handleRating = (rating) => {
+    dispatch(rateMovie(movie.id, rating, sessionId));
+  };
+
+  const handleRemoveRating = () => {
+    dispatch(removeMovieRating(movie.id, sessionId));
+    navigate("/movies");
+  };
+
+  console.log("my rating insde movie details", ratedMovie);
 
   if (!movie) {
     return <div>Loading movie details...</div>;
   }
+
   const {
     title,
     poster_path,
@@ -31,7 +53,7 @@ function MovieDetailsPage() {
     credits,
     recommendations,
   } = movie;
-  return (
+  return isAuthenticated ? (
     <div className="movie-details-page">
       <Header />
       <div className="movie-details">
@@ -56,6 +78,24 @@ function MovieDetailsPage() {
           <p>Genres: {genres.map((genre) => genre.name).join(", ")}</p>
           <p>Rating: {vote_average} ⭐</p>
         </div>
+
+        <div className="rating-actions">
+          <h2>Rate this movie:</h2>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <button key={star} onClick={() => handleRating(star)}>
+              {star} ⭐
+            </button>
+          ))}
+        </div>
+        <div className="current-rating">
+          <h2>Your Rating:</h2>
+          {rateMovie ? (
+            <p>{ratedMovie} ⭐</p>
+          ) : (
+            <p>You haven't rated this movie yet.</p>
+          )}
+          <button onClick={handleRemoveRating}>Remove Rating</button>
+        </div>
         <div className="cast">
           <h2>Cast:</h2>
           <ul>
@@ -73,6 +113,11 @@ function MovieDetailsPage() {
           <MovieList movies={recommendations.results} genres={genres} />
         </div>
       </section>
+    </div>
+  ) : (
+    <div>
+      <h1>Sign in to view this page</h1>
+      <a href="/">Sign In</a>
     </div>
   );
 }
