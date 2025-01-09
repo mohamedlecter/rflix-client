@@ -40,7 +40,7 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <Header />
-      <div className="filter">
+      <div className="genre-filter">
         <label htmlFor="genre-select">Filter by Genre:</label>
         <select
           id="genre-select"

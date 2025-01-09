@@ -3,21 +3,21 @@ import { API_KEY, BASE_URL } from "../../services/tmdbApi";
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
 
-export const signIn = (username, password) => async (dispatch) => {
+export const signin = (username, password, navigate) => async (dispatch) => {
   try {
-    // Step 1: Get a new request token
+    // Step 1: Request a new token
     const tokenResponse = await axios.get(
       `${BASE_URL}/authentication/token/new?api_key=${API_KEY}`
     );
-    const requestToken = tokenResponse.data.request_token;
+    const token = tokenResponse.data.request_token;
 
-    // Step 2: Validate the token with the username and password
+    // Step 2: Validate the token with username and password
     await axios.post(
       `${BASE_URL}/authentication/token/validate_with_login?api_key=${API_KEY}`,
       {
         username,
         password,
-        request_token: requestToken,
+        request_token: token,
       }
     );
 
@@ -25,14 +25,30 @@ export const signIn = (username, password) => async (dispatch) => {
     const sessionResponse = await axios.post(
       `${BASE_URL}/authentication/session/new?api_key=${API_KEY}`,
       {
-        request_token: requestToken,
+        request_token: token,
       }
     );
 
-    dispatch({ type: SIGN_IN, payload: sessionResponse.data.session_id });
+    const sessionId = sessionResponse.data.session_id;
+
+    // Step 4: Dispatch sign-in action
+    dispatch({
+      type: SIGN_IN,
+      payload: { sessionId },
+    });
+
+    console.log("sessionId", sessionId);
+
+    // Redirect to home page
+    navigate("/");
   } catch (error) {
-    console.error("Error signing in:", error);
+    console.error("Sign-in failed:", error);
+    alert("Authentication failed. Please check your credentials.");
   }
 };
 
-export const signOut = () => ({ type: SIGN_OUT });
+export const signOut = () => (dispatch) => {
+  dispatch({
+    type: SIGN_OUT,
+  });
+};
