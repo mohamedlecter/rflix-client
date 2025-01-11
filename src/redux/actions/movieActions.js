@@ -34,7 +34,7 @@ export const getPopularMovies = (genreId) => async (dispatch) => {
 export const getTopRatedMovies = (genreId) => async (dispatch) => {
   try {
     const url = genreId
-      ? `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&with_genres=${genreId}&sort_by=vote_average.desc&vote_count.gte=100`
+      ? `${BASE_URL}/discover/movie?api_key=${API_KEY}&sort_by=vote_average.desc&vote_count.gte=100&with_genres=${genreId}`
       : `${BASE_URL}/movie/top_rated?api_key=${API_KEY}&sort_by=vote_average.desc&vote_count.gte=100`;
 
     // to show 40 results, we need to fetch 2 pages
